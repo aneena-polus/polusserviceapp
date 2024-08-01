@@ -1,6 +1,6 @@
 {
 	"/api/login": {
-		"target": "http://10.199.100.137:8080/api/auth/login",
+		"target": "http://10.199.100.139:8080/api/auth/login",
 		"secure": false,
 		"changeOrigin": true,
 		"pathRewrite": {
@@ -8,7 +8,7 @@
 		}
 	},
 	"/api/signup": {
-		"target": "http://10.199.100.137:8080/api/auth/signupOredit",
+		"target": "http://10.199.100.139:8080/api/auth/signupOredit",
 		"secure": false,
 		"changeOrigin": true,
 		"pathRewrite": {
@@ -16,7 +16,7 @@
 		}
 	},
 	"/api/country": {
-		"target": "http://10.199.100.137:8080/api/country/getallcountries",
+		"target": "http://10.199.100.139:8080/api/country/getallcountries",
 		"secure": false,
 		"changeOrigin": true,
 		"pathRewrite": {
@@ -24,7 +24,7 @@
 		}
 	},
 	"/api/tickettype": {
-		"target": "http://10.199.100.137:8080/api/ticket/getalltickettype",
+		"target": "http://10.199.100.139:8080/api/ticket/getalltickettype",
 		"secure": false,
 		"changeOrigin": true,
 		"pathRewrite": {
@@ -32,7 +32,7 @@
 		}
 	},
 	"/api/createticket": {
-		"target": "http://10.199.100.137:8080/api/ticket/generateticket",
+		"target": "http://10.199.100.139:8080/api/ticket/generateticket",
 		"secure": false,
 		"changeOrigin": true,
 		"pathRewrite": {
@@ -40,7 +40,7 @@
 		}
 	},
 	"/api/getticket": {
-		"target": "http://10.199.100.137:8080/api/ticket/response",
+		"target": "http://10.199.100.139:8080/api/ticket/response",
 		"secure": false,
 		"changeOrigin": true,
 		"pathRewrite": {
@@ -48,7 +48,7 @@
 		}
 	},
 	"/api/countticket": {
-		"target": "http://10.199.100.137:8080/api/ticket/ticketcount",
+		"target": "http://10.199.100.139:8080/api/ticket/ticketcount",
 		"secure": false,
 		"changeOrigin": true,
 		"pathRewrite": {
@@ -56,7 +56,7 @@
 		}
 	},
 	"/api/deleteticket": {
-		"target": "http://10.199.100.137:8080/api/ticket/deleteticket",
+		"target": "http://10.199.100.139:8080/api/ticket/deleteticket",
 		"secure": false,
 		"changeOrigin": true,
 		"pathRewrite": {
@@ -64,7 +64,7 @@
 		}
 	},
 	"/api/adminassign": {
-		"target": "http://10.199.100.137:8080/api/ticket/assignadmin",
+		"target": "http://10.199.100.139:8080/api/ticket/assignadmin",
 		"secure": false,
 		"changeOrigin": true,
 		"pathRewrite": {
@@ -72,7 +72,7 @@
 		}
 	},
 	"/api/assignedtome": {
-		"target": "http://10.199.100.137:8080/api/ticket/assignedtome",
+		"target": "http://10.199.100.139:8080/api/ticket/assignedtome",
 		"secure": false,
 		"changeOrigin": true,
 		"pathRewrite": {
@@ -80,7 +80,7 @@
 		}
 	},
 	"/api/statuschange": {
-		"target": "http://10.199.100.137:8080/api/ticket/statuschange",
+		"target": "http://10.199.100.139:8080/api/ticket/statuschange",
 		"secure": false,
 		"changeOrigin": true,
 		"pathRewrite": {
@@ -88,7 +88,7 @@
 		}
 	},
 	"/api/employeelist": {
-		"target": "http://10.199.100.137:8080/api/auth/employeelist",
+		"target": "http://10.199.100.139:8080/api/auth/employeelist",
 		"secure": false,
 		"changeOrigin": true,
 		"pathRewrite": {
@@ -96,15 +96,23 @@
 		}
 	},
 	"/api/setrole": {
-		"target": "http://10.199.100.137:8080/api/auth/setrole",
+		"target": "http://10.199.100.139:8080/api/auth/setrole",
 		"secure": false,
 		"changeOrigin": true,
 		"pathRewrite": {
 			"^/api/setrole": ""
 		}
 	},
+	"/api/deleterole": {
+		"target": "http://10.199.100.139:8080/api/auth/deleterole",
+		"secure": false,
+		"changeOrigin": true,
+		"pathRewrite": {
+			"^/api/deleterole": ""
+		}
+	},
 	"/api/newtickettype": {
-		"target": "http://10.199.100.137:8080/api/ticket/createtickettype",
+		"target": "http://10.199.100.139:8080/api/ticket/createtickettype",
 		"secure": false,
 		"changeOrigin": true,
 		"pathRewrite": {

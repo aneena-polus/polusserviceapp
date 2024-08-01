@@ -15,7 +15,6 @@ export class ConfirmDialogComponent {
 
     ngOnInit(): void {
         this.ticketDesc = this.data.ticketDesc;
-        console.log(this.data);
     }
 
     public onConfirm(): void {

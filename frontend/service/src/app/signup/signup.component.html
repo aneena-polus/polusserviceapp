@@ -12,7 +12,7 @@
                                 <input type="text" id="signup_user_id" class="form-control" name="userid" tabindex="0"
                                     aria-label="Click to enter your username" aria-required="true"
                                     [ngClass]="{'red-border-class': errorMap.has('usernameErrorMessage') && isFormSubmitted}"
-                                    [(ngModel)]="username" required />
+                                    [(ngModel)]="username" placeholder="Enter your username" required />
                                 <div *ngIf="errorMap.has('usernameErrorMessage') && isFormSubmitted" id="toast"
                                     class="font-weight-bold text-danger">
                                     {{errorMap.get('usernameErrorMessage')}}
@@ -27,7 +27,8 @@
                                     <input [type]="passwordFieldType" id="signup_password" class="form-control"
                                         [ngClass]="{'red-border-class': errorMap.has('passwordErrorMessage') && isFormSubmitted}"
                                         name="password" tabindex="0" aria-label="Click to enter your password"
-                                        [(ngModel)]="password" aria-required="true" required />
+                                        [(ngModel)]="password" aria-required="true" placeholder="Enter your password"
+                                        required />
                                     <div class="input-group-append">
                                         <button class="btn btn-outline-light rounded-0" type="button"
                                             title="show password" id="togglePassword" tabindex="0"
@@ -54,7 +55,7 @@
                                 <input type="text" id="first_name" class="form-control" name="first_name" tabindex="0"
                                     [ngClass]="{'red-border-class': errorMap.has('firstNameErrorMessage') && isFormSubmitted}"
                                     aria-label="Click to enter your first name" [(ngModel)]="firstname"
-                                    aria-required="true" required />
+                                    aria-required="true" placeholder="Enter your first name" required />
                                 <div *ngIf="errorMap.has('firstNameErrorMessage') && isFormSubmitted" id="toast"
                                     class=" font-weight-bold text-danger">
                                     {{errorMap.get('firstNameErrorMessage')}}
@@ -68,7 +69,7 @@
                                 <input type="text" id="last_name" class="form-control" name="last_name" tabindex="0"
                                     [ngClass]="{'red-border-class': errorMap.has('lastNameErrorMessage') && isFormSubmitted}"
                                     aria-label="Click to enter your last name" [(ngModel)]="lastname"
-                                    aria-required="true" required />
+                                    aria-required="true" placeholder="Enter your last name" required />
                                 <div *ngIf="errorMap.has('lastNameErrorMessage') && isFormSubmitted" id="toast"
                                     class=" font-weight-bold text-danger">
                                     {{errorMap.get('lastNameErrorMessage')}}
@@ -81,7 +82,8 @@
                         <label class="form-label" for="email" tabindex="-1">Email</label>
                         <input type="email" id="email" class="form-control" name="email" tabindex="0"
                             [ngClass]="{'red-border-class': errorMap.has('emailErrorMessage') && isFormSubmitted}"
-                            aria-label="Click to enter your email" [(ngModel)]="email" aria-required="true" required />
+                            aria-label="Click to enter your email" [(ngModel)]="email" aria-required="true"
+                            placeholder="Enter your email" required />
                         <div *ngIf="errorMap.has('emailErrorMessage') && isFormSubmitted" id="toast"
                             class="font-weight-bold text-danger">
                             {{errorMap.get('emailErrorMessage')}}
@@ -95,7 +97,7 @@
                                 <input type="tel" id="phone_number" class="form-control" name="phone_number"
                                     [ngClass]="{'red-border-class': errorMap.has('phoneErrorMessage') && isFormSubmitted}"
                                     tabindex="0" aria-label="Click to enter your phone number" aria-required="true"
-                                    [(ngModel)]="phoneNumber" required />
+                                    [(ngModel)]="phoneNumber" placeholder="Enter your phone number" required />
                                 <div *ngIf="errorMap.has('phoneErrorMessage') && isFormSubmitted" id="toast"
                                     class="font-weight-bold text-danger">
                                     {{errorMap.get('phoneErrorMessage')}}
@@ -109,7 +111,7 @@
                                 <input type="text" id="designation" class="form-control" name="designation" tabindex="0"
                                     [ngClass]="{'red-border-class': errorMap.has('designationErrorMessage') && isFormSubmitted}"
                                     [(ngModel)]="designation" aria-label="Click to enter your designation"
-                                    aria-required="true" required />
+                                    aria-required="true" placeholder="Enter your designation" required />
                                 <div *ngIf="errorMap.has('designationErrorMessage') && isFormSubmitted" id="toast"
                                     class=" font-weight-bold text-danger">
                                     {{errorMap.get('designationErrorMessage')}}
@@ -125,7 +127,7 @@
                                 <input type="text" id="state" class="form-control" name="state" tabindex="0"
                                     [ngClass]="{'red-border-class': errorMap.has('stateErrorMessage') && isFormSubmitted}"
                                     [(ngModel)]="state" aria-label="Click to enter your state" aria-required="true"
-                                    required />
+                                    placeholder="Enter your state" required />
                                 <div *ngIf="errorMap.has('stateErrorMessage') && isFormSubmitted" id="toast"
                                     class=" font-weight-bold text-danger">
                                     {{errorMap.get('stateErrorMessage')}}
@@ -139,6 +141,7 @@
                                 <select id="country" class="form-control" name="country" [(ngModel)]="country"
                                     [ngClass]="{'red-border-class': errorMap.has('countryErrorMessage') && isFormSubmitted}"
                                     aria-label="Select your country" aria-required="true" required>
+                                    <option value="" disabled selected>Select your country</option>
                                     <option *ngFor="let country of countries" [value]="country.countryCode">
                                         {{ country.countryName }}
                                     </option>

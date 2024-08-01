@@ -5,14 +5,11 @@
             [ngClass]="{ 'active': activeStatus === 'assigned to me' }">
             <i class="fa fa-user" aria-hidden="true"></i>
             <span [matBadge]="ticketCount" matBadgeOverlap="false" class="custom-badge"> Assigned to me</span></button>
-        <button class="btn btn-transparent text-success me-2 shadow-none btn-hover" tabindex="0"
-            title="Assigned to all Tickets" aria-label="Assigned to all button"
-            (click)="assignedToAll('assigned to all')" [ngClass]="{ 'active': activeStatus === 'assigned to all' }">
-            <i class="fa-solid fa-users"></i> Assigned to All</button>
-        <button class="btn btn-transparent text-success me-2 shadow-none btn-hover" tabindex="0"
-            title="Make an user admin" aria-label="Make an user admin" (click)="userToAdmin('user to admin')"
+        <button class="btn btn-transparent text-success me-2 shadow-none btn-hover" tabindex="0" title="Change the role"
+            aria-label="Change the role" (click)="roleChange('user to admin')"
             [ngClass]="{ 'active': activeStatus === 'user to admin' }">
-            <i class="fa-solid fa-user-graduate"></i> User to Admin</button>
+            User <i class="fa fa-exchange" aria-hidden="true"></i>
+            Admin</button>
         <button class="btn btn-transparent text-success me-2 shadow-none btn-hover" tabindex="0"
             title="Create new service type" aria-label="Make an user admin"
             (click)="createServiceType('new service type')"
@@ -111,7 +108,7 @@
                 <div class="row mb-2">
                     <div class="col-12 text-end">
                         <button class="btn btn-success btn-sm me-2" title="View More" data-bs-toggle="modal"
-                            data-bs-target="#showMorePopUp" (click)="showTicket(ticketRequest)">
+                            data-bs-target="#showMorePopUp" (click)="viewMoreTicket(ticketRequest)">
                             <i class="fa fa-external-link text-light" aria-hidden="true"></i>
                         </button>
                         <button *ngIf="ticketRequest.ticketStatus === 2 " class="btn btn-primary btn-sm me-2"

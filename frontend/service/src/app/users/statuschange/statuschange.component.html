@@ -11,11 +11,13 @@
                     </h2>
                     <div class="row mb-2">
                         <div class="col-12">
+                            <span class="text-danger" *ngIf="statusId === 4">* </span>
                             <label class="form-label fw-bold" for="comment" tabindex="0">Comment:</label>
                         </div>
                         <div class="col-12">
                             <div class="form-outline">
                                 <textarea class="form-control" id="comment" rows="4" name="comment" tabindex="0"
+                                    [ngClass]="{'red-border-class': errorMessage && statusId === 4}"
                                     [(ngModel)]="comment" aria-label="Click to enter a comment to the ticket"
                                     aria-required="true" required></textarea>
                             </div>

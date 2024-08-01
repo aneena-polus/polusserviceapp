@@ -27,6 +27,7 @@ export class TicketRequestComponent {
     ticketRequestsAllData: ShowTicket[] = [];
     ticketId: number = 0;
     ticketType: number = 0;
+    ticketStatusId: number = 0;
     ticketDesc: string = '';
     loggedInUser: Login = {} as Login;
     serviceType: number = 0;
@@ -40,10 +41,10 @@ export class TicketRequestComponent {
     showFirstLastButtons = true;
     pageSize: number = 3;
 
-    constructor(private _data_service: DataService,
-        private _dialogref: MatDialog,
-        private _datePipe: DatePipe,
-        private _snackbar: MatSnackBar) { }
+    constructor( private _data_service: DataService,
+                 private _dialogref: MatDialog,
+                 private _datePipe: DatePipe,
+                 private _snackbar: MatSnackBar ) { }
 
     ngOnInit(): void {
         this.loggedInUser = this._data_service.getLoggedInUser();
@@ -55,7 +56,7 @@ export class TicketRequestComponent {
         });
     }
 
-    public editTicket(ticketRequest: GetTicketRequest): void {
+    public editTicket( ticketRequest: GetTicketRequest ): void {
         this.initialiseTicket(ticketRequest);
     }
 
@@ -65,14 +66,18 @@ export class TicketRequestComponent {
             ticketType: this.serviceType,
             ticketDescription: this.serviceDesc,
             ticketCreateBy: this.loggedInUser.employeeId ?? 0,
+            employeeid: null,
+            adminId: null,
+            statusId: this.activeStatus
         };
-        this._data_service.editTicket(TICKETRO).subscribe({
+        this._data_service.editTicket( TICKETRO ).subscribe({
             next: () => {
                 this.serviceType = 0;
                 this.serviceDesc = '';
                 this.closebutton.nativeElement.click();
                 this.openTicketOperationMessage('Ticket Updated Successfully!');
-                this.inProgressStatus(1);
+                this.activeStatus === 1? this.inProgressStatus(1): null;
+                this.activeStatus === 4? this.rejectStatus(4): null;
             },
             error: (error) => {
                 console.error(error);
@@ -80,17 +85,20 @@ export class TicketRequestComponent {
         });
     }
 
-    public deleteTicket(ticketRequest: GetTicketRequest): void {
+    public deleteTicket( ticketRequest: GetTicketRequest ): void {
         this.ticketId = ticketRequest.id;
         this.ticketDesc = ticketRequest.ticketDescription;
         let dialogRef = this._dialogref.open(ConfirmDialogComponent, {
             width: '700px',
             panelClass: 'custom-dialog-container',
-            data: { ticketId: this.ticketId, ticketDesc: this.ticketDesc }
+            data: {
+                    ticketId: this.ticketId,
+                    ticketDesc: this.ticketDesc
+                }
         });
-        dialogRef.afterClosed().subscribe(deleteConfirm => {
-            if (deleteConfirm === 'confirm') {
-                this._data_service.deleteTicket(this.ticketId).subscribe({
+        dialogRef.afterClosed().subscribe( deleteConfirm => {
+            if ( deleteConfirm === 'confirm' ) {
+                this._data_service.deleteTicket( this.ticketId ).subscribe({
                     next: () => {
                         this.openTicketOperationMessage('Ticket Deleted Successfully!');
                         this.fetchTicketCount();
@@ -104,32 +112,28 @@ export class TicketRequestComponent {
         });
     }
 
-    public assignTicket(ticketRequest: GetTicketRequest): void {
+    public assignTicket( ticketRequest: GetTicketRequest ): void {
         this.initialiseTicket(ticketRequest);
-        let dialogRef = this._dialogref.open(AssignTicketComponent, {
+        let dialogRef = this._dialogref.open( AssignTicketComponent, {
             width: '700px',
             panelClass: 'custom-dialog-container',
-            data: { ticketId: this.ticketId, employeeId: this.loggedInUser.employeeId }
+            data: {
+                ticketId: this.ticketId,
+                employeeId: this.loggedInUser.employeeId
+            }
         });
         dialogRef.afterClosed().subscribe(() => {
             this.fetchTicketCount();
-            this.inProgressStatus(1);
+            this.activeStatus === 1? this.inProgressStatus(1): null;
+            this.activeStatus === 4? this.rejectStatus(4): null;
         });
     }
 
-    public showTicket(ticketRequest: GetTicketRequest): void {
+    public viewMoreTicket( ticketRequest: GetTicketRequest ): void {
         this.selectedTicket = ticketRequest;
-        this._data_service.showTicket(ticketRequest.id).subscribe({
-            next: (ticketRequestsAllData: ShowTicket[]) => {
-                this.ticketRequestsAllData = ticketRequestsAllData;
-            },
-            error: (error) => {
-                console.error(error);
-            },
-        });
     }
 
-    private initialiseTicket(ticketRequest: GetTicketRequest): void {
+    private initialiseTicket( ticketRequest: GetTicketRequest ): void {
         this.ticketId = ticketRequest.id;
         this.ticketType = ticketRequest.ticketType.ticketTypeId;
         this.ticketDesc = ticketRequest.ticketDescription;
@@ -143,31 +147,31 @@ export class TicketRequestComponent {
         });
     }
 
-    public inProgressStatus(status: number): void {
+    public inProgressStatus( status: number ): void {
         this.activeStatus = status;
         this.currentPage = 0;
         this.fetchTicketRequests(1);
     }
 
-    public assignStatus(status: number): void {
+    public assignStatus( status: number ): void {
         this.activeStatus = status;
         this.currentPage = 0;
         this.fetchTicketRequests(2);
     }
 
-    public approveStatus(status: number): void {
+    public approveStatus( status: number ): void {
         this.activeStatus = status;
         this.currentPage = 0;
         this.fetchTicketRequests(3);
     }
 
-    public rejectStatus(status: number): void {
+    public rejectStatus( status: number ): void {
         this.activeStatus = status;
         this.currentPage = 0;
         this.fetchTicketRequests(4);
     }
 
-    public fetchTicketRequests(statusId: number): void {
+    public fetchTicketRequests( statusId: number ): void {
         this._data_service.fetchTicketRequests(statusId, this.currentPage, this.pageSize).subscribe({
             next: (ticketRequests: GetTicketRequest[]) => {
                 this.filteredTicketRequests = ticketRequests;
@@ -179,7 +183,7 @@ export class TicketRequestComponent {
         });
     }
 
-    public filterResults(filterValue: string): void {
+    public filterResults( filterValue: string ): void {
         filterValue = filterValue.toLowerCase();
         this.filteredTicketRequests = this.ticketRequests.filter(ticketRequest => {
             const assignedTo = ticketRequest.assignedTo ? `${ticketRequest.assignedTo.firstName} ${ticketRequest.assignedTo.lastName}`.toLowerCase() : '';
@@ -197,7 +201,7 @@ export class TicketRequestComponent {
         });
     }
 
-    public onPageChange(event: PageEvent): void {
+    public onPageChange( event: PageEvent ): void {
         this.currentPage = event.pageIndex;
         this.pageSize = event.pageSize;
         this.fetchTicketRequests(this.activeStatus);

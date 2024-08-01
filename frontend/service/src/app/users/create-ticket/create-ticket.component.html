@@ -48,10 +48,8 @@
                                             <div class="form-outline">
                                                 <select id="serviceTypes" class="form-select" name="serviceTypes"
                                                     [(ngModel)]="serviceType" aria-label="Select a service type"
-                                                    aria-required="true" tabindex="0"
-                                                    [ngClass]="{'red-border-class': errorMap.has('ticketTypeMessage')
-                                                    && !isFormSubmitted}"
-                                                    required>
+                                                    aria-required="true" tabindex="0" [ngClass]="{'red-border-class': errorMap.has('ticketTypeMessage')
+                                                    && !isFormSubmitted}" required>
                                                     <option disabled selected value="">Select service types</option>
                                                     <option *ngFor="let service of serviceTypes"
                                                         [value]="service.ticketTypeId" tabindex="0">
@@ -75,8 +73,7 @@
                                             <textarea class="form-control" id="description" rows="5" name="description"
                                                 tabindex="0"
                                                 aria-label="Click to enter a description of service you require"
-                                                aria-required="true" [(ngModel)]="serviceDesc"
-                                                [ngClass]="{'red-border-class': errorMap.has('serviceDescMessage')
+                                                aria-required="true" [(ngModel)]="serviceDesc" [ngClass]="{'red-border-class': errorMap.has('serviceDescMessage')
                                                 && !isFormSubmitted}" required></textarea>
                                             <div *ngIf="errorMap.has('serviceDescMessage') && !isFormSubmitted"
                                                 id="errorMessage" class="font-weight-bold text-danger" tabindex="0">
@@ -110,7 +107,7 @@
         </h2>
         <div id="ticketRequests" #ticketRequests class="accordion-collapse collapse" aria-labelledby="headingTwo"
             data-bs-parent="#createNewTicket">
-            <div class="accordion-body" *ngIf="isFormSubmitted">
+            <div class="accordion-body" *ngIf="isFormSubmitted && isRefreshed">
                 <app-ticket-request></app-ticket-request>
             </div>
         </div>

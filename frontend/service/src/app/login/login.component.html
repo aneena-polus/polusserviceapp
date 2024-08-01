@@ -10,7 +10,8 @@
                         <input type="text" [(ngModel)]="username" id="login_user_id"
                             [ngClass]="{'red-border-class': errorMessage && username === ''}"
                             class="form-control input-sm field-border" name="userid" tabindex="0"
-                            aria-label="Click to enter your user name" aria-required="true" required />
+                            aria-label="Click to enter your user name" aria-required="true"
+                            placeholder="Enter your username" required />
                     </div>
                     <div class="form-outline mb-4">
                         <span class="fw-bold text-danger">* </span>
@@ -19,7 +20,8 @@
                             <input [type]="passwordFieldType" [(ngModel)]="password" id="login_password"
                                 class="form-control" name="login_password" tabindex="0"
                                 [ngClass]="{'red-border-class': errorMessage && password === ''}"
-                                aria-label="Click to enter your password" aria-required="true" required />
+                                aria-label="Click to enter your password" aria-required="true"
+                                placeholder="Enter your password" required />
                             <div class="input-group-append">
                                 <button class="btn btn-outline-light rounded-0" type="button" id="togglePassword"
                                     (click)="togglePasswordVisibility()" tabindex="0"

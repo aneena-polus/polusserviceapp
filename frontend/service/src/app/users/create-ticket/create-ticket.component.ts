@@ -1,6 +1,5 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { Login, ServiceType, CreateTicket, ShowTicket } from './ServiceType';
-import { Router } from '@angular/router';
 import { DataService } from '../../data.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -19,16 +18,15 @@ export class CreateTicketComponent {
 
     errorMap = new Map<string, string>();
     serviceTypes: ServiceType[] = [];
-    createdTicket: ShowTicket | undefined;
     serviceType: number = 0;
     serviceDesc: string = '';
     employeeId: number | undefined;
     loggedInUser: Login = {} as Login;
     isFormSubmitted: boolean = false;
+    isRefreshed: boolean = false;
 
-    constructor(private _data_service: DataService,
-        private _snackbar: MatSnackBar,
-        private _ROUTER: Router,) { }
+    constructor( private _data_service: DataService,
+                 private _snackbar: MatSnackBar ) { }
 
     ngOnInit(): void {
         this.getServiceTypes();
@@ -43,20 +41,22 @@ export class CreateTicketComponent {
     }
 
     public createTicket(): void {
+        this.isRefreshed = false;
         this.errorMap.clear();
         !this.serviceType ? this.displayErrorMessage('ticketTypeMessage', 'Please select a ticket type.') : null;
         !this.serviceDesc ? this.displayErrorMessage('serviceDescMessage', 'Please enter description.') : null;
         const TICKETRO: CreateTicket = {
+            ticketId: null,
             ticketType: this.serviceType,
-            ticketCreateBy: this.employeeId,
             ticketDescription: this.serviceDesc,
+            ticketCreateBy: this.employeeId,
+            adminId: null,
+            statusId: 1
         };
-        if (!this.errorMap.has('ticketTypeMessage') && !this.errorMap.has('serviceDescMessage')) {
-            this._data_service.createTicket(TICKETRO).subscribe({
+        if ( !this.errorMap.has('ticketTypeMessage') && !this.errorMap.has('serviceDescMessage') ) {
+            this._data_service.createTicket( TICKETRO ).subscribe({
                 next: (response: ShowTicket) => {
-                    console.log(response);
                     this.serviceDesc = '';
-                    this.createdTicket = response;
                     this.isFormSubmitted = true;
                     this.toggleAccordion();
                     response ? this.openCreateTicketMessage() : console.log('No response received');
@@ -79,9 +79,10 @@ export class CreateTicketComponent {
         createTicketElement?.classList.add('collapse');
         ticketRequestElement?.classList.add('show');
         ticketRequestElement?.classList.remove('collapse');
+        this.isRefreshed = true;
     }
 
-    private displayErrorMessage(key: string, value: string): void {
+    private displayErrorMessage( key: string, value: string ): void {
         this.errorMap.set(key, value);
     }
 

@@ -122,20 +122,21 @@
                 <div class="row mb-2">
                     <div class="col-12 text-end">
                         <button class="btn btn-success btn-sm me-2" title="View More" aria-label="click to view more"
-                            (click)="showTicket(ticketRequest)" data-bs-toggle="modal" data-bs-target="#showMorePopUp"
+                            (click)="viewMoreTicket(ticketRequest)" data-bs-toggle="modal" data-bs-target="#showMorePopUp"
                             tabindex="0"> <i class="fa fa-external-link text-light" aria-hidden="true"></i>
                         </button>
                         <button class="btn btn-primary btn-sm me-2" title="Edit" (click)="editTicket(ticketRequest)"
                             aria-label="click to edit ticket" data-bs-toggle="modal" data-bs-target="#editTicketPopUp"
-                            *ngIf="this.activeStatus === 1" tabindex="0"> <i class="fas fa-edit"></i>
+                            *ngIf="this.activeStatus === 1 || this.activeStatus === 4" tabindex="0"> <i
+                                class="fas fa-edit"></i>
                         </button>
                         <button class="btn btn-danger btn-sm me-2" title="Delete" (click)="deleteTicket(ticketRequest)"
                             *ngIf="this.activeStatus === 1" aria-label="click to delete ticket" tabindex="0">
                             <i class="fa fa-trash" aria-hidden="true"></i>
                         </button>
                         <button class="btn btn-info btn-sm" title="Assign Admin" (click)="assignTicket(ticketRequest)"
-                            *ngIf="this.activeStatus === 1" aria-label="click to assign admin to the ticket"
-                            tabindex="0">
+                            *ngIf="this.activeStatus === 1 || this.activeStatus === 4"
+                            aria-label="click to assign admin to the ticket" tabindex="0">
                             <i class="fa fa-user" aria-hidden="true"></i>
                         </button>
                     </div>
@@ -169,7 +170,7 @@
 
 <div class="modal fade" id="editTicketPopUp" tabindex="-1" aria-labelledby="Edit Ticket Pop Up" aria-hidden="true"
     #editTicketModal>
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content custom-rounded-border">
             <div class="modal-header">
                 <h1 class="modal-title fs-5 text-success" tabindex="0" id="editTicketHeading">Edit Ticket</h1>
@@ -213,7 +214,7 @@
             <div class="modal-footer">
                 <button type="button" #closebutton class="btn btn-secondary" title="Close"
                     aria-label="Click here to dismiss" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-success" title="Edit" (click)="editSubmit()"
+                <button type="button" class="btn btn-success" title="Update" (click)="editSubmit()"
                     aria-label="Click here to update ticket">Update</button>
             </div>
         </div>

@@ -44,10 +44,14 @@
             <div class="modal-header">
                 <h1 class="modal-title fs-5 text-success" id="userDetailsTitle" aria-label="User Details" tabindex="0">
                     {{ loggedInUser.username }} Details</h1>
-                <button type="button" class="btn btn-transparent text-success border border-success" id="userDetailsEditBtn"
-                    aria-label="Edit" (click)="editUserDetails()"><i class="fa-solid fa-pen"></i></button>
-                <button type="button" class="btn-close" id="userDetailsCloseBtn" data-bs-dismiss="modal" title="close"
-                    aria-label="Close"></button>
+                <div class="dflex align-items-center">
+                    <button type="button" class="btn btn-transparent text-success btn-hover" title="Edit"
+                        id="userDetailsEditBtn" aria-label="Edit" (click)="editUserDetails()">
+                        <i class="fa-solid fa-pen"></i></button>
+                    <button type="button" class="btn-close" id="userDetailsCloseBtn" data-bs-dismiss="modal"
+                        title="Close" aria-label="Close" (click)="onClose()"></button>
+                </div>
+
             </div>
             <div class="modal-body">
                 <div class="row">
@@ -55,58 +59,117 @@
                         <div class="row">
                             <div id="firstname" class="mb-2" title="first name" aria-label="first name" tabindex="0">
                                 <div class="fw-bold">First Name</div>
-                                <div class="custom-spacing" tabindex="0" *ngIf="!isEditClicked">{{ loggedInUser.firstname }}</div>
+                                <div class="custom-spacing" tabindex="0"
+                                    *ngIf="!edittedDetails.firstname && !isEditClicked">{{ loggedInUser.firstname }}
+                                </div>
+                                <div class="custom-spacing" tabindex="0"
+                                    *ngIf="edittedDetails.firstname && !isEditClicked">{{ edittedDetails.firstname }}
+                                </div>
                                 <input type="text" id="first_name" class="form-control" name="first_name" tabindex="0"
                                     aria-label="Click to enter your first name" [(ngModel)]="firstname"
-                                    aria-required="true" required *ngIf="isEditClicked"/>
+                                    aria-required="true" required *ngIf="isEditClicked" />
                             </div>
                         </div>
                         <div class="row">
                             <div id="lastname" class="mb-2" title="last name" aria-label="last name" tabindex="0">
                                 <div class="fw-bold">Last Name</div>
-                                <div class="custom-spacing" tabindex="0">{{ loggedInUser.lastname }}</div>
+                                <div class="custom-spacing" tabindex="0"
+                                    *ngIf="!edittedDetails.lastname && !isEditClicked">{{ loggedInUser.lastname }}</div>
+                                <div class="custom-spacing" tabindex="0"
+                                    *ngIf="edittedDetails.lastname && !isEditClicked">{{ edittedDetails.lastname }}
+                                </div>
+                                <input type="text" id="last_name" class="form-control" name="last_name" tabindex="0"
+                                    aria-label="Click to enter your last name" [(ngModel)]="lastname"
+                                    aria-required="true" required *ngIf="isEditClicked" />
                             </div>
                         </div>
                         <div class="row">
-                            <div id="phone_number" class="mb-2" title="phone Number"
-                            aria-label="phone Number" tabindex="0">
-                            <div class="fw-bold">Phone Number</div>
-                            <div class="custom-spacing" tabindex="0">{{ loggedInUser.phoneNumber }}</div>
-                        </div>
+                            <div id="phone_number" class="mb-2" title="phone Number" aria-label="phone Number"
+                                tabindex="0">
+                                <div class="fw-bold">Phone Number</div>
+                                <div class="custom-spacing" tabindex="0"
+                                    *ngIf="!edittedDetails.phoneNumber && !isEditClicked">{{ loggedInUser.phoneNumber }}
+                                </div>
+                                <div class="custom-spacing" tabindex="0"
+                                    *ngIf="edittedDetails.phoneNumber && !isEditClicked">{{ edittedDetails.phoneNumber
+                                    }}</div>
+                                <input type="tel" id="phone_number" class="form-control" name="phone_number"
+                                    tabindex="0" aria-label="Click to enter your phone number" aria-required="true"
+                                    [(ngModel)]="phoneNumber" required *ngIf="isEditClicked" />
+                            </div>
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-6 col-sm-12">
                         <div class="row">
                             <div id="email" class="mb-2" title="email" aria-label="email" tabindex="0">
                                 <div class="fw-bold">Email</div>
-                                <div class="custom-spacing" tabindex="0">{{ loggedInUser.email }}</div>
+                                <div class="custom-spacing" tabindex="0"
+                                    *ngIf="!edittedDetails.email && !isEditClicked">{{ loggedInUser.email }}</div>
+                                <div class="custom-spacing" tabindex="0" *ngIf="edittedDetails.email && !isEditClicked">
+                                    {{ edittedDetails.email }}</div>
+                                <input type="email" id="email" class="form-control" name="email" tabindex="0"
+                                    *ngIf="isEditClicked" aria-label="Click to enter your email" [(ngModel)]="email"
+                                    aria-required="true" required />
                             </div>
                         </div>
                         <div class="row">
                             <div id="state" class="mb-2" title="state" aria-label="state" tabindex="0">
                                 <div class="fw-bold">State</div>
-                                <div class="custom-spacing" tabindex="0">{{ loggedInUser.state }}</div>
+                                <div class="custom-spacing" tabindex="0"
+                                    *ngIf="!edittedDetails.state && !isEditClicked">{{ loggedInUser.state }}</div>
+                                <div class="custom-spacing" tabindex="0" *ngIf="edittedDetails.state && !isEditClicked">
+                                    {{ edittedDetails.state }}</div>
+                                <input type="text" id="state" class="form-control" name="state" tabindex="0"
+                                    [(ngModel)]="state" aria-label="Click to enter your state" aria-required="true"
+                                    required *ngIf="isEditClicked" />
                             </div>
                         </div>
                         <div class="row">
                             <div id="country" class="mb-2" title="country" aria-label="country" tabindex="0">
                                 <div class="fw-bold">Country Name</div>
-                                <div class="custom-spacing" tabindex="0">{{ loggedInUser.countryCode?.countryName }}</div>
+                                <div class="custom-spacing" tabindex="0"
+                                    *ngIf="!edittedDetails.countryCode && !isEditClicked">{{
+                                    loggedInUser.countryCode?.countryName }}</div>
+                                <div class="custom-spacing" tabindex="0"
+                                    *ngIf="edittedDetails.countryCode && !isEditClicked">{{
+                                    edittedDetails.countryCode.countryName }}</div>
+                                <select id="country" class="form-control" name="country" [(ngModel)]="country"
+                                    aria-label="Select your country" aria-required="true" required
+                                    *ngIf="isEditClicked">
+                                    <option *ngFor="let country of countries" [value]="country.countryCode">
+                                        {{ country.countryName }}
+                                    </option>
+                                </select>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-6 col-sm-12">
-                        <div id="designation" class="mb-2" class="mb-2" title="designation" aria-label="designation" tabindex="0">
+                        <div id="designation" class="mb-2" class="mb-2" title="designation" aria-label="designation"
+                            tabindex="0">
                             <div class="fw-bold">Designation</div>
-                            <div class="custom-spacing" tabindex="0">{{ loggedInUser.designation }}</div>
+                            <div class="custom-spacing" tabindex="0"
+                                *ngIf="!edittedDetails.designation && !isEditClicked">{{ loggedInUser.designation }}
+                            </div>
+                            <div class="custom-spacing" tabindex="0" *ngIf="edittedDetails.designation !isEditClicked">
+                                {{ edittedDetails.designation }}</div>
+                            <input type="text" id="designation" class="form-control" name="designation" tabindex="0"
+                                [(ngModel)]="designation" aria-label="Click to enter your designation"
+                                aria-required="true" required *ngIf="isEditClicked" />
                         </div>
                         <div id="roles" class="mb-2" class="fw-bold" tabindex="0">Roles</div>
                         <ul id="select_roles" title="roles" aria-label="roles">
-                            <li class="custom-spacing" *ngFor="let role of loggedInUser.roles" id="rolename" tabindex="0">{{
+                            <li class="custom-spacing" *ngFor="let role of loggedInUser.roles" id="rolename"
+                                tabindex="0">{{
                                 role.roleName }}</li>
                         </ul>
                     </div>
                 </div>
+            </div>
+            <div class="modal-footer" *ngIf="isEditClicked">
+                <button type="button" #closebutton class="btn btn-secondary" title="Close"
+                    aria-label="Click here to dismiss" data-bs-dismiss="modal" (click)="onClose()">Cancel</button>
+                <button type="button" class="btn btn-success" title="Update" (click)="editSubmit()"
+                    aria-label="Click here to update ticket">Update</button>
             </div>
         </div>
     </div>

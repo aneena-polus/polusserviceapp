@@ -25,9 +25,9 @@ export class LoginComponent {
     signedUpUser: SignUpResponse = {} as SignUpResponse;
 	errorMessage: string | null = null;
 
-	constructor(private _DATA_SERVICE: DataService,
-				private _ROUTER: Router,
-        		private _SNACKBAR: MatSnackBar) { }
+	constructor( private _DATA_SERVICE: DataService,
+				 private _ROUTER: Router,
+        		 private _SNACKBAR: MatSnackBar ) { }
 
     ngOnInit(): void {
         this.signedUpUser = this._DATA_SERVICE.getSignedUpUser();
@@ -35,8 +35,8 @@ export class LoginComponent {
         this.password = this.signedUpUser.Password;
     }
 
-	public login():void {
-		if (this.isBlankField()) {
+	public login(): void {
+		if ( this.isBlankField() ) {
 			this.errorMessage = 'Fields cannot be blank';
 		}
 		else {
@@ -44,10 +44,10 @@ export class LoginComponent {
 				username: this.username,
 				password: this.password
 			}).subscribe({
-				next: (response) => {
-					if(response && response.roles) {
-						const adminRole = response.roles.find(roles => roles.roleId === 1);
-						if(adminRole) {
+				next: ( response ) => {
+					if( response && response.roles ) {
+						const adminRole = response.roles.find( roles => roles.roleId === 1 );
+						if( adminRole ) {
 							this._ROUTER.navigate(['/users']);
                             this._DATA_SERVICE.setLoggedInUser(response);
               				this.openLoginMessage(response.username);
@@ -56,11 +56,8 @@ export class LoginComponent {
 							this._ROUTER.navigate(['/admin']);
 						}
 					}
-					else {
-						console.log('No response received');
-					}
 				},
-				error: (error) => {
+				error: ( error ) => {
 					console.log(error);
 					this.errorMessage = 'Invalid username or password';
 				},

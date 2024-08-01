@@ -12,15 +12,16 @@
                             <div class="form-outline">
                                 <select id="assignAdmin" class="form-select" name="assignAdmin"
                                     [(ngModel)]="assignAdmin" aria-label="Select admin" aria-required="true" required
-                                    tabindex="0" (click)="isChecked=false">
-                                    <option selected value=null>Select an admin</option>
+                                    tabindex="0" (click)="isChecked=false"
+                                    [ngClass]="{'red-border-class': assignAdmin === 0 && isFormSubmitted} ">
+                                    <option selected disabled value="">Select an admin</option>
                                     <option *ngFor="let admin of adminLists" id="selectAdmin"
                                         [value]="admin.employeeId">
                                         {{admin.firstName}} {{admin.lastName}}
                                     </option>
                                 </select>
                             </div>
-                            <div class="form-check">
+                            <div class="form-check" *ngIf="loggedInUser.roles?.[1]?.roleId">
                                 <input type="checkbox" [(ngModel)]="isChecked" id="assignToMeCheckBox"
                                     class="form-check-input" name="assignToMeCheckBox" tabindex="0"
                                     aria-label="Click to select yourself as admin" aria-required="true"

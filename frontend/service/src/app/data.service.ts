@@ -3,7 +3,8 @@ import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { ServiceType, CreateTicket, GetTicketRequest, EditTicketRequest, UserToAdmin, MakeAdmin,
         AdminList, AssignAdmin, GetAssignedTickets, PerformAction, ShowTicket, Response,
-		CreateServiceType, TicketCount, SignUpResponse} from './users/create-ticket/ServiceType';
+		CreateServiceType, TicketCount, SignUpResponse,
+        EditResponse} from './users/create-ticket/ServiceType';
 import { Login } from './login/Login';
 import { Signup, Country } from './signup/Signup';
 
@@ -24,6 +25,10 @@ export class DataService {
 
 	signup(post: Signup): Observable<SignUpResponse> {
 		return this.http.post<SignUpResponse>('/api/signup', post);
+	};
+
+	editDetails(post: Signup): Observable<EditResponse> {
+		return this.http.post<EditResponse>('/api/signup', post);
 	};
 
 	editUserDetails(post: Signup): Observable<Signup> {
@@ -105,7 +110,7 @@ export class DataService {
 		return this.http.get(`/api/setrole/${post.employeeId}/${post.roleId}`, { responseType: 'text' });
 	};
 
-	showTicket(id: number): Observable<ShowTicket[]> {
-		return this.http.get<ShowTicket[]>(`/api/getticket/${id}`);
+	revokeRole(post: MakeAdmin): Observable<Response> {
+		return this.http.delete<Response>(`/api/deleterole/${post.adminId}/${post.employeeId}/${post.roleId}`);
 	};
 }
